@@ -12,6 +12,12 @@ export default function TipCalculator() {
   // Derived State in calculating the tip
   const tip = Math.round(bill * ((percentage1 + percentage2) / 2 / 100));
 
+  function handleReset() {
+    setBill("");
+    setPercentage1(0);
+    setPercentage2(0);
+  }
+
   return (
     <div>
       <header>
@@ -26,8 +32,13 @@ export default function TipCalculator() {
         <SelectPercentage percentage={percentage2} onSelect={setPercentage2}>
           How did your friend like the service?{" "}
         </SelectPercentage>
-        <Output bill={bill} tip={tip} />
-        <Reset />
+
+        {bill > 0 && (
+          <>
+            <Output bill={bill} tip={tip} />
+            <Reset onReset={handleReset} />
+          </>
+        )}
       </div>
     </div>
   );
